@@ -21,8 +21,8 @@ func min(a int, b int) int {
 //MaxInt32 - максимальное целое 32 бит
 const MaxInt32 = 1<<31 - 1
 
-//canvas - холст с расположеными на нём прямоугольниками
-type canvas struct {
+//Canvas - холст с расположеными на нём прямоугольниками
+type Canvas struct {
 	rectangles []rectangle
 	Square     int
 	minX       int
@@ -32,7 +32,7 @@ type canvas struct {
 }
 
 //CalcSize - рассчитать верхний и нихний угол канваса
-func (canv *canvas) CalcSize() {
+func (canv *Canvas) CalcSize() {
 	canv.minX, canv.minY, canv.maxX, canv.maxY = MaxInt32, MaxInt32, 0, 0
 	for _, rec := range canv.rectangles {
 		lb := rec.LeftBottom()
@@ -45,7 +45,7 @@ func (canv *canvas) CalcSize() {
 }
 
 //CalcSquare - рассчитать площадь канваса
-func (canv *canvas) CalcSquare() int {
+func (canv *Canvas) CalcSquare() int {
 	var minX, minY, maxX, maxY int = MaxInt32, MaxInt32, 0, 0
 	for _, rec := range canv.rectangles {
 		lb := rec.LeftBottom()
@@ -61,7 +61,7 @@ func (canv *canvas) CalcSquare() int {
 
 //Add - Добавить новый прямоугольник на канвас
 // возвращает true  если успешно добавил
-func (canv *canvas) Add(width int, height int) bool {
+func (canv *Canvas) Add(width int, height int) bool {
 	vercots := [...][2]int{ //направления по который пробуем добавлять новый прямоугольник
 		[2]int{1, 0},
 		[2]int{-1, 0},
@@ -89,7 +89,7 @@ func (canv *canvas) Add(width int, height int) bool {
 }
 
 //IsBusy - провериить влазит ли сюда прямоугольник
-func (canv *canvas) IsBusy(x int, y int, width int, height int) bool {
+func (canv *Canvas) IsBusy(x int, y int, width int, height int) bool {
 	var (
 		x1 = x - width/2
 		y1 = y - height/2
