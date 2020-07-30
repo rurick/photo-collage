@@ -1,4 +1,11 @@
 package engine
 
 //поколения
-type generations []population
+type Generations []Population
+
+//new - создает новую поппулцию
+func (gen *Generations) new() *Population {
+	//мутация
+	//скрещивание
+	return
+}

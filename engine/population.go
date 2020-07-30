@@ -1,5 +1,5 @@
 package engine
 
-//популяция
-type population struct {
+//Population - популяция
+type Population struct {
 }

@@ -3,11 +3,10 @@ package main
 import (
 	"fmt"
 
-	ga "./engine"
+	"./engine"
 )
 
 func main() {
 	fmt.Println(ga.Max(4, 5))
-	var canv ga.Canvas
-	canv.CalcSize()
+	var canv engine.Population
 }
