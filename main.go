@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	ga "./engine"
+)
 
 func main() {
-	fmt.Println("хело Ворд")
+	fmt.Println(ga.Max(4, 5))
+
 }

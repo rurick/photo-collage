@@ -1,5 +1,10 @@
 package engine
 
+//Max - max
+func Max(a int, b int) int {
+	return 2
+}
+
 func max(a int, b int) int {
 	if a > b {
 		return a
@@ -57,10 +62,59 @@ func (canv *canvas) CalcSquare() int {
 //Add - Добавить новый прямоугольник на канвас
 // возвращает true  если успешно добавил
 func (canv *canvas) Add(width int, height int) bool {
+	vercots := [...][2]int{ //направления по который пробуем добавлять новый прямоугольник
+		[2]int{1, 0},
+		[2]int{-1, 0},
+		[2]int{0, 1},
+		[2]int{0, -1},
+		[2]int{1, 1},
+		[2]int{-1, -1},
+		[2]int{-1, 1},
+		[2]int{1, -1}}
+	for _, vector := range vercots {
+		if !canv.IsBusy(
+			vector[0]*canv.maxX+width/2+1,
+			vector[1]*canv.maxY+height/2+1,
+			width,
+			height) {
+			//свободно
+			canv.rectangles = append(canv.rectangles, rectangle{
+				vector[0]*canv.maxX + width/2 + 1,
+				vector[1]*canv.maxY + height/2 + 1,
+				height,
+				width})
+		}
+	}
 	return false
 }
 
 //IsBusy - провериить влазит ли сюда прямоугольник
 func (canv *canvas) IsBusy(x int, y int, width int, height int) bool {
+	var (
+		x1 = x - width/2
+		y1 = y - height/2
+		x2 = x + width/2
+		y2 = y + height/2
+		x3 = x - width/2
+		y3 = y + height/2
+		x4 = x + width/2
+		y4 = y - height/2
+	)
+	for _, rec := range canv.rectangles {
+		lb := rec.LeftBottom()
+		rt := rec.RightTop()
+		if lb.x < x1 && x1 < rt.x && lb.y < y1 && y1 < rt.y {
+			return true
+		}
+		if lb.x < x2 && x2 < rt.x && lb.y < y2 && y2 < rt.y {
+			return true
+		}
+		if lb.x < x3 && x3 < rt.x && lb.y < y3 && y3 < rt.y {
+			return true
+		}
+		if lb.x < x4 && x4 < rt.x && lb.y < y4 && y4 < rt.y {
+			return true
+		}
+	}
 	return false
 }
