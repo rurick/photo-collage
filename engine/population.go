@@ -11,5 +11,6 @@ func (p *Population) Init(cnt int, sizes [...]Size) {
 	p.Cnt = cnt
 	for i := 0; i < cnt; i++ {
 		canv = new Canvas()
+		canv.Init(sizes)
 	}
 }

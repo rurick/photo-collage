@@ -8,5 +8,5 @@ import (
 
 func main() {
 	fmt.Println(engine.Max(4, 5))
-	var canv engine.Canv
+	engine.Start()
 }

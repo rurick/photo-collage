@@ -23,12 +23,20 @@ const MaxInt32 = 1<<31 - 1
 
 //Canvas - холст с расположеными на нём прямоугольниками
 type Canvas struct {
-	rectangles []rectangle
+	rectangles []Rectangle
 	Square     int
 	minX       int
 	minY       int
 	maxX       int
 	maxY       int
+}
+
+func (canv *Canvas) Init(sizes [...]Size) {
+	for _, size := range sizes {
+		canv.Add(size.w, size.h)
+	}
+	canv.CalcSize()
+	canv.CalcSquare()
 }
 
 //CalcSize - рассчитать верхний и нихний угол канваса
@@ -73,14 +81,18 @@ func (canv *Canvas) Add(width int, height int) bool {
 		[2]int{1, -1}}
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(vercots), func(i, j int) { vercots[i], vectors[j] = vercots[j], vectors[i] })
+	centerX := (canv.maxX - canv.minX) / 2
+	w := canv.maxX - canv.minX
+	centerY := (canv.maxY - canv.minY) / 2
+	h := canv.maxY - canv.minY
 	for _, vector := range vercots {
 		if !canv.IsBusy(
-			vector[0]*canv.maxX+width/2+1,
-			vector[1]*canv.maxY+height/2+1,
+			centerX+vector[0]*w/2+width/2+1,
+			centerY+vector[1]*h/2+height/2+1,
 			width,
 			height) {
 			//свободно
-			canv.rectangles = append(canv.rectangles, rectangle{
+			canv.rectangles = append(canv.rectangles, Rectangle{
 				vector[0]*canv.maxX + width/2 + 1,
 				vector[1]*canv.maxY + height/2 + 1,
 				height,
