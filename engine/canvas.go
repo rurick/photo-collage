@@ -1,9 +1,9 @@
 package engine
 
-//Max - max
-func Max(a int, b int) int {
-	return 2
-}
+import (
+	"math/rand"
+	"time"
+)
 
 func max(a int, b int) int {
 	if a > b {
@@ -71,6 +71,8 @@ func (canv *Canvas) Add(width int, height int) bool {
 		[2]int{-1, -1},
 		[2]int{-1, 1},
 		[2]int{1, -1}}
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(len(vercots), func(i, j int) { vercots[i], vectors[j] = vercots[j], vectors[i] })
 	for _, vector := range vercots {
 		if !canv.IsBusy(
 			vector[0]*canv.maxX+width/2+1,
@@ -83,6 +85,7 @@ func (canv *Canvas) Add(width int, height int) bool {
 				vector[1]*canv.maxY + height/2 + 1,
 				height,
 				width})
+			return true
 		}
 	}
 	return false

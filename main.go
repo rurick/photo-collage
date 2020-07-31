@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	fmt.Println(ga.Max(4, 5))
-	var canv engine.Population
+	fmt.Println(engine.Max(4, 5))
+	var canv engine.Canv
 }

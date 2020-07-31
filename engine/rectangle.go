@@ -7,6 +7,11 @@ type point struct {
 	y int
 }
 
+type Size struct {
+	w int
+	h int
+}
+
 type rectangle struct {
 	x     int //координата центра
 	y     int //координата центра
@@ -27,8 +32,8 @@ func (rect rectangle) LeftTop() point {
 	return point{rect.x - rect.wedth/2, rect.y + rect.hight/2}
 }
 
-//мутирует: сдвигает значение по x  b  y на -2:+2
-func (rect *rectangle) mutate() {
+//Mutate: сдвигает значение по x  и  y на -2:+2
+func (rect *rectangle) Mutate() {
 	rect.x += 2 - rand.Intn(5)
 	rect.y += 2 - rand.Intn(5)
 }
